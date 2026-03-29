@@ -290,32 +290,7 @@ Open VS Code → Extensions panel (`Ctrl+Shift+X`) → Search and install:
 
 ---
 
-### 3.4 Create an Azure AI Search Index (Grounding Layer)
 
-The Foundry Agent portal does **not** support direct Azure Blob Storage as a knowledge source. The available options are **Files** (manual upload), **Azure AI Search**, and **Grounding with Bing**. The correct path to ground your agent on the parquet files in Blob Storage is through an **Azure AI Search** index.
-
-**Create an Azure AI Search service:**
-1. In the Azure Portal → search **Azure AI Search** → Click **+ Create**
-2. Fill in:
-   - **Resource group:** `rg-f1-session`
-   - **Service name:** `srch-f1-session` (globally unique)
-   - **Region:** Same as your resource group
-   - **Pricing tier:** Basic (minimum required for semantic ranker)
-3. Click **Review + Create** → **Create**
-
-**Create an index from your Blob Storage:**
-1. Once deployed, go to your Search service → **Overview** → Click **Import data**
-2. **Data source:** Select **Azure Blob Storage**
-3. Connect to your storage account `champdemo5954940607` → select container `f1data`
-4. Click **Next: Add cognitive skills** → skip → Click **Next: Customize target index**
-5. Set **Index name:** `f1-index`
-6. Ensure key fields (`driver_number`, `lap_duration`, `position`) are marked as **Retrievable** and **Searchable**
-7. Click **Next: Create an indexer** → set schedule to **Hourly** (picks up new parquet files automatically)
-8. Click **Submit**
-
-> ✅ Azure AI Search will now index your parquet files from Blob Storage and keep the index updated.
-
----
 
 ### 3.5 Create and Configure the Agent
 
