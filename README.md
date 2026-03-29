@@ -259,36 +259,6 @@ Open VS Code → Extensions panel (`Ctrl+Shift+X`) → Search and install:
 - **Azure MCP Server** (by Microsoft) — search `ms-azuretools.vscode-azure-mcp-server`
 - **GitHub Copilot for Azure** (by Microsoft) — recommended; includes and uses the Azure MCP Server, and streamlines Azure workflows directly in Copilot Chat
 
-**Create the workspace `mcp.json` — this step is mandatory:**
-
-Inside your project folder, create `.vscode/mcp.json` with this exact content:
-
-```json
-{
-  "servers": {
-    "Azure MCP Server": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@azure/mcp@latest",
-        "server",
-        "start"
-      ]
-    }
-  }
-}
-```
-
-> ⚠️ **Without this file, Copilot will not use Azure MCP tools inline.** It will fall back to generating terminal scripts and cannot read the output back — giving you responses like *"check the terminal for results"* instead of answering in chat.
-
-> ⚠️ **Duplicate server warning:** If you have a global `mcp.json` at `C:\Users\<you>\AppData\Roaming\Code\User\mcp.json` that also defines an Azure MCP entry (e.g. using `dnx Azure.Mcp@2.0.0-beta.34`), remove that entry. Having two Azure MCP server definitions causes conflicting tool behavior. Keep only the workspace `.vscode/mcp.json` version above.
-
-**Verify Azure MCP Server is active:**
-1. Open GitHub Copilot Chat (`Ctrl+Shift+I`) → switch to **Agent Mode**
-2. Click the 🔧 tools icon → search `storage`
-3. You should see **one** `storage` entry — *"Storage operations - Commands for creating, listing, getting, and managing Azure Storage..."*
-4. If you see it listed twice, you have a duplicate MCP config — follow the warning above to fix it
-
 > ⚠️ Azure MCP Server requires you to be signed in to Azure in VS Code. If the tools don't appear, press `Ctrl+Shift+P` → **Azure: Sign In** and authenticate first, then press `Ctrl+Shift+P` → **MCP: Restart All MCP Servers**.
 
 ---
